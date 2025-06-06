@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: auto;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Admin Data</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Gender</th>
+            <th>Hobbies</th>
+        </tr>
+        <% users.map(admin=> { %>
+            <tr>
+                <td>
+                    <%= admin.name %>
+                </td>
+                <td>
+                    <%= admin.email %>
+                </td>
+                <td>
+                    <%= admin.phone %>
+                </td>
+                <td>
+                    <%= admin.city %>
+                </td>
+                <td>
+                    <%= admin.gender %>
+                </td>
+                <td>
+                    <%= admin.hobby.join(', ') %></td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>
