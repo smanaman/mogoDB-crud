@@ -38,9 +38,10 @@
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1500px;
       margin: 0 auto;
       padding: 30px 20px;
+   
     }
 
     header {
@@ -50,6 +51,7 @@
       margin-bottom: 30px;
       padding-bottom: 20px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      
     }
 
     h1 {
@@ -124,7 +126,26 @@
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
       overflow: hidden;
+      overflow-x: scroll;
     }
+    /* width */
+.table-container::-webkit-scrollbar {
+ 
+  height: 7px;
+  border-radius: 20px;
+}
+
+/* Track */
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.table-container::-webkit-scrollbar-thumb {
+  background: var(--primary);
+    border-radius: 20px;
+
+}
 
     table {
       width: 100%;
@@ -201,6 +222,33 @@
     .no-data p {
       font-size: 16px;
       margin-top: 10px;
+    }
+
+    /* Image styles */
+    .user-photo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--light-gray);
+      transition: var(--transition);
+    }
+
+    .user-photo:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .photo-placeholder {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-size: 20px;
     }
 
     /* Modal styles */
@@ -355,6 +403,10 @@
       </a>
     </header>
 
+
+
+
+
     <div class="table-container">
       <table>
         <thead>
@@ -368,13 +420,14 @@
             <th>Country</th>
             <th>Shipping</th>
             <th>Payment</th>
+            <th>Photo</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <% if(users.length === 0) { %>
             <tr>
-              <td colspan="10" class="no-data">
+              <td colspan="11" class="no-data">
                 <i class="fas fa-box-open"></i>
                 <p>No orders found. Add your first order to get started.</p>
                 <a href="/adddata" class="btn btn-primary" style="margin-top: 20px;">
@@ -408,6 +461,15 @@
                   <span class="badge">
                     <i class="fas fa-credit-card"></i> •••• <%= order.cardnumber.slice(-4) %>
                   </span>
+                </td>
+                <td>
+                  <% if(order.image) { %>
+                    <img src="<%= order.image %>" alt="User Photo" class="user-photo">
+                  <% } else { %>
+                    <div class="photo-placeholder">
+                      <i class="fas fa-user"></i>
+                    </div>
+                  <% } %>
                 </td>
                 <td class="actions">
                   <a href="/editdata?id=<%=order.id %>" class="btn btn-success btn-sm">
@@ -444,7 +506,6 @@
   </div>
 
   <script>
-
     document.addEventListener('DOMContentLoaded', function() {
       const deleteModal = document.getElementById('delete-modal');
       const deleteButtons = document.querySelectorAll('.delete-btn');
@@ -459,12 +520,10 @@
         });
       });
 
-   
       cancelDelete.addEventListener('click', function() {
         deleteModal.classList.remove('active');
       });
 
-   
       confirmDelete.addEventListener('click', function() {
         if (orderIdToDelete) {
           confirmDelete.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
@@ -476,14 +535,12 @@
         }
       });
 
-      
       deleteModal.addEventListener('click', function(e) {
         if (e.target === deleteModal) {
           deleteModal.classList.remove('active');
         }
       });
 
-     
       const tableRows = document.querySelectorAll('tbody tr');
       tableRows.forEach((row, index) => {
         row.style.opacity = '0';
@@ -496,6 +553,10 @@
         }, 100);
       });
     });
+
+
+
+
   </script>
 </body>
 </html>

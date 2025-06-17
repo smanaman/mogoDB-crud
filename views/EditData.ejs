@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edit Book userupdate</title>
+  <title>Edit Book</title>
   <style>
     * {
       margin: 0;
@@ -93,6 +93,26 @@
       background: #2980b9;
     }
 
+    .file-upload-hint {
+      display: block;
+      font-size: 0.8rem;
+      color: #777;
+      font-weight: normal;
+      margin-top: 4px;
+    }
+
+    .image-preview {
+      margin-top: 10px;
+    }
+
+    .image-preview img {
+      max-width: 100px;
+      max-height: 100px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 5px;
+    }
+
     @media (max-width: 500px) {
       .form-container {
         padding: 20px;
@@ -106,10 +126,10 @@
 </head>
 <body>
   <div class="form-container">
-    <h1>Edit Book userupdate</h1>
+    <h1>Edit Book</h1>
 
-    <form action="/editdata?id=<%= userupdate.id %>" method="post">
-      <input type="hidden" name="id" value="<%= userupdate._id %>">
+    <form action="/editdata?id=<%=userupdate.id%>" method="post" enctype="multipart/form-data">
+  
 
       <div class="form-section">
         <h2>Shipping Information</h2>
@@ -196,7 +216,24 @@
         </div>
       </div>
 
-      <button type="submit" class="btn">Update userupdate</button>
+      <div class="form-section">
+        <h2>Additional Information</h2>
+        <div class="form-group">
+          <label class="file-upload-label" for="file">
+            Upload Supporting Document (Optional)
+            <span class="file-upload-hint">You can upload a PDF, JPG, or PNG file (max 5MB)</span>
+          </label>
+          <input type="file" id="file" name="image">
+          <% if (userupdate.image) { %>
+            <div class="image-preview">
+              <p>Current Image:</p>
+              <img src="<%= userupdate.image %>" alt="Current document">
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <button type="submit" class="btn">Update Book</button>
     </form>
   </div>
 </body>

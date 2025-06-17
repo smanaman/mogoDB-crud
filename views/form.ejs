@@ -102,13 +102,30 @@
         font-size: 1.6rem;
       }
     }
+
+    /* Style for file input */
+    input[type="file"] {
+      padding: 10px;
+    }
+
+    .file-upload-label {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-upload-hint {
+      font-size: 0.8rem;
+      color: #777;
+      font-weight: normal;
+    }
   </style>
 </head>
 <body>
   <div class="form-container">
     <h1>Book Order Form</h1>
 
-    <form action="/adddata" method="post">
+    <form action="/adddata" method="post" enctype="multipart/form-data">
       <div class="form-section">
         <h2>Shipping Information</h2>
 
@@ -191,6 +208,17 @@
             <label for="cvv">CVV</label>
             <input type="text" id="cvv" name="cvv" placeholder="123" required>
           </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Additional Information</h2>
+        <div class="form-group">
+          <label class="file-upload-label" for="file">
+            Upload Supporting Document (Optional)
+            <span class="file-upload-hint">You can upload a PDF, JPG, or PNG file (max 5MB)</span>
+          </label>
+          <input type="file" id="file" name="image" >
         </div>
       </div>
 
